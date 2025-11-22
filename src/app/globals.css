@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   /* Color Palette - Premium Dark/Tech Theme */
   --background: #0a0a0a;
