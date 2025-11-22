@@ -14,19 +14,19 @@ export default function Button({
     fullWidth = false,
     ...props
 }: ButtonProps) {
-    const baseStyles = "inline-flex items-center justify-center rounded-lg font-medium transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--primary)] disabled:opacity-50 disabled:cursor-not-allowed";
+    const baseStyles = "inline-flex items-center justify-center rounded-xl font-semibold transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--primary)] disabled:opacity-50 disabled:cursor-not-allowed active:scale-[0.98]";
 
     const variants = {
-        primary: "bg-[var(--primary)] text-white hover:bg-[var(--primary-hover)] shadow-lg shadow-blue-500/20",
-        secondary: "bg-[var(--secondary)] text-[var(--secondary-foreground)] hover:bg-[var(--secondary-hover)]",
-        outline: "border border-[var(--border)] bg-transparent hover:bg-[var(--surface-hover)] text-[var(--foreground)]",
+        primary: "bg-gradient-to-r from-[var(--primary)] to-[var(--accent)] text-white hover:shadow-lg hover:shadow-sky-500/30 hover:-translate-y-0.5",
+        secondary: "bg-[var(--surface-hover)] text-[var(--foreground)] hover:bg-[var(--border)] border border-[var(--border)]",
+        outline: "border-2 border-[var(--primary)] bg-transparent hover:bg-[var(--primary)] hover:text-white text-[var(--primary)]",
         ghost: "bg-transparent hover:bg-[var(--surface-hover)] text-[var(--foreground)]",
     };
 
     const sizes = {
-        sm: "h-8 px-3 text-xs",
-        md: "h-10 px-4 text-sm",
-        lg: "h-12 px-6 text-base",
+        sm: "h-9 px-4 text-sm",
+        md: "h-11 px-6 text-base",
+        lg: "h-14 px-8 text-lg",
     };
 
     const width = fullWidth ? "w-full" : "";

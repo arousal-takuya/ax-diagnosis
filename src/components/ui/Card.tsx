@@ -5,15 +5,18 @@ interface CardProps {
     className?: string;
     title?: string;
     description?: string;
+    hover?: boolean;
 }
 
-export default function Card({ children, className = '', title, description }: CardProps) {
+export default function Card({ children, className = '', title, description, hover = false }: CardProps) {
+    const hoverClass = hover ? 'hover:shadow-xl hover:shadow-sky-500/10 hover:-translate-y-1 transition-all duration-200' : '';
+
     return (
-        <div className={`glass-panel rounded-xl p-6 ${className}`}>
+        <div className={`bg-white rounded-2xl p-8 border border-[var(--border-light)] shadow-md ${hoverClass} ${className}`}>
             {(title || description) && (
-                <div className="mb-4">
-                    {title && <h3 className="text-lg font-semibold text-[var(--foreground)]">{title}</h3>}
-                    {description && <p className="text-sm text-[var(--secondary-foreground)] mt-1">{description}</p>}
+                <div className="mb-6">
+                    {title && <h3 className="text-2xl font-bold text-[var(--foreground)] mb-2">{title}</h3>}
+                    {description && <p className="text-[var(--foreground-muted)]">{description}</p>}
                 </div>
             )}
             {children}
