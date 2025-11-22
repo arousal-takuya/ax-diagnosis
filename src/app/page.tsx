@@ -6,12 +6,12 @@ export default function Home() {
   return (
     <MainLayout>
       <div className="flex min-h-[70vh] flex-col items-center justify-center text-center animate-fade-in">
-        <div className="mb-8 inline-flex h-20 w-20 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-500 to-violet-500 text-4xl font-bold text-white shadow-lg shadow-blue-500/30">
+        <div className="mb-8 inline-flex h-20 w-20 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-500 text-4xl font-bold text-white shadow-lg shadow-blue-500/30">
           AX
         </div>
         <h1 className="mb-6 text-4xl font-extrabold tracking-tight text-[var(--foreground)] sm:text-5xl md:text-6xl">
           AX Diagnosis
-          <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-violet-400 mt-2">
+          <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-cyan-500 mt-2">
             AI Transformation
           </span>
         </h1>
