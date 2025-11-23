@@ -26,13 +26,13 @@ export default function Select({
     return (
         <div className="w-full">
             {label && (
-                <label htmlFor={selectId} className="mb-2 block text-sm font-semibold text-[var(--foreground)]">
+                <label htmlFor={selectId} className="mb-1 block text-sm font-semibold text-[var(--foreground)]">
                     {label}
                 </label>
             )}
             <select
                 id={selectId}
-                className={`w-full rounded-xl border-2 border-[var(--border)] bg-white px-4 py-3 text-base text-[var(--foreground)] transition-all duration-200 focus:border-[var(--primary)] focus:outline-none focus:ring-4 focus:ring-[var(--primary)]/10 disabled:cursor-not-allowed disabled:opacity-50 ${error ? 'border-[var(--error)] focus:border-[var(--error)] focus:ring-[var(--error)]/10' : ''
+                className={`w-full rounded border border-[var(--border)] bg-white px-3 py-2 text-sm text-[var(--foreground)] transition-colors focus:border-[var(--primary)] focus:outline-none focus:ring-1 focus:ring-[var(--primary)] disabled:bg-gray-100 disabled:cursor-not-allowed ${error ? 'border-[var(--error)] focus:border-[var(--error)] focus:ring-[var(--error)]' : ''
                     } ${className}`}
                 {...props}
             >
@@ -43,7 +43,7 @@ export default function Select({
                     </option>
                 ))}
             </select>
-            {error && <p className="mt-2 text-sm text-[var(--error)]">{error}</p>}
+            {error && <p className="mt-1 text-xs text-[var(--error)]">{error}</p>}
         </div>
     );
 }

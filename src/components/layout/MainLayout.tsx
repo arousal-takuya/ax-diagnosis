@@ -1,3 +1,4 @@
+import React from 'react';
 import Header from './Header';
 import Footer from './Footer';
 
@@ -9,8 +10,8 @@ export default function MainLayout({ children }: MainLayoutProps) {
     return (
         <div className="flex min-h-screen flex-col bg-[var(--background)]">
             <Header />
-            <main className="flex-1 pt-20 pb-12 px-4 sm:px-6 lg:px-8">
-                <div className="mx-auto max-w-5xl w-full">
+            <main className="flex-grow pt-14">
+                <div className="mx-auto max-w-[1400px] p-4 sm:p-6 lg:p-8">
                     {children}
                 </div>
             </main>

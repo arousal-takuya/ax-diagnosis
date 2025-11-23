@@ -56,120 +56,126 @@ export default function ResultPage() {
 
     return (
         <MainLayout>
-            <div className="space-y-12 animate-fade-in pb-12">
-                {/* Header */}
-                <div className="text-center">
-                    <h1 className="text-5xl font-extrabold text-[var(--foreground)] mb-4">診断結果</h1>
-                    <p className="text-xl text-[var(--foreground-muted)]">
-                        あなたの組織のAI活用成熟度を分析しました
-                    </p>
+            <div className="space-y-6 pb-12">
+                {/* Dashboard Header */}
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-2">
+                    <div>
+                        <h1 className="text-2xl font-bold text-[var(--header-bg)]">AX Diagnosis Dashboard</h1>
+                        <p className="text-sm text-[var(--foreground-muted)]">
+                            最終更新: {new Date().toLocaleDateString()} | 対象: {data.organizationTarget}
+                        </p>
+                    </div>
+                    <div className="flex gap-2">
+                        <Button size="sm" variant="secondary">エクスポート</Button>
+                        <Button size="sm" variant="primary">共有</Button>
+                    </div>
                 </div>
 
-                {/* Overall Score */}
-                <Card className="text-center">
-                    <h2 className="text-2xl font-bold text-[var(--foreground)] mb-8">総合スコア</h2>
-                    <div className="flex flex-col items-center">
-                        <ProgressRing score={scores.overall} size={240} strokeWidth={20} />
-                        <div className="mt-8">
-                            <div
-                                className="inline-block px-6 py-3 rounded-full text-white font-bold text-xl"
-                                style={{ backgroundColor: overallLevel.color }}
-                            >
-                                {overallLevel.level}
+                {/* KPI Cards Row */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <Card className="flex flex-col items-center justify-center py-8">
+                        <div className="text-5xl font-bold text-[var(--foreground)] mb-1">{scores.overall}</div>
+                        <div className="text-sm font-medium text-[var(--foreground-muted)] uppercase tracking-wider">総合スコア</div>
+                    </Card>
+                    <Card className="flex flex-col items-center justify-center py-8">
+                        <div className="text-5xl font-bold mb-1" style={{ color: overallLevel.color }}>{overallLevel.level}</div>
+                        <div className="text-sm font-medium text-[var(--foreground-muted)] uppercase tracking-wider">成熟度レベル</div>
+                    </Card>
+                    <Card className="flex flex-col items-center justify-center py-8">
+                        <div className="text-5xl font-bold text-[var(--primary)] mb-1">{scores.adoption}%</div>
+                        <div className="text-sm font-medium text-[var(--foreground-muted)] uppercase tracking-wider">導入進捗率</div>
+                    </Card>
+                </div>
+
+                {/* Charts Grid */}
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                    {/* Main Chart Area (2 cols) */}
+                    <div className="lg:col-span-2 space-y-4">
+                        <Card title="カテゴリ別スコア分析">
+                            <div className="h-[300px] w-full">
+                                <CategoryBarChart data={barData} />
                             </div>
-                            <p className="mt-4 text-lg text-[var(--foreground-muted)]">
-                                {overallLevel.description}
-                            </p>
+                        </Card>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <Card title="成熟度バランス">
+                                <div className="h-[250px] w-full flex items-center justify-center">
+                                    <ScoreRadarChart data={radarData} />
+                                </div>
+                            </Card>
+                            <Card title="総合評価">
+                                <div className="h-[250px] w-full flex items-center justify-center">
+                                    <ProgressRing score={scores.overall} size={180} strokeWidth={16} />
+                                </div>
+                            </Card>
                         </div>
                     </div>
-                </Card>
 
-                {/* Category Scores */}
-                <div className="grid gap-8 md:grid-cols-2">
-                    <Card>
-                        <h3 className="text-xl font-bold text-[var(--foreground)] mb-6">カテゴリ別スコア（レーダーチャート）</h3>
-                        <ScoreRadarChart data={radarData} />
-                    </Card>
-                    <Card>
-                        <h3 className="text-xl font-bold text-[var(--foreground)] mb-6">カテゴリ別スコア（バーチャート）</h3>
-                        <CategoryBarChart data={barData} />
-                    </Card>
-                </div>
+                    {/* Side Panel (1 col) */}
+                    <div className="space-y-4">
+                        <Card title="詳細メトリクス">
+                            <div className="space-y-4">
+                                <div>
+                                    <div className="flex justify-between text-sm mb-1">
+                                        <span className="font-medium">導入成熟度</span>
+                                        <span className="font-bold">{scores.adoption}</span>
+                                    </div>
+                                    <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
+                                        <div className="h-full bg-blue-500" style={{ width: `${scores.adoption}%` }}></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div className="flex justify-between text-sm mb-1">
+                                        <span className="font-medium">利用浸透度</span>
+                                        <span className="font-bold">{scores.usage}</span>
+                                    </div>
+                                    <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
+                                        <div className="h-full bg-cyan-500" style={{ width: `${scores.usage}%` }}></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div className="flex justify-between text-sm mb-1">
+                                        <span className="font-medium">ガバナンス</span>
+                                        <span className="font-bold">{scores.governance}</span>
+                                    </div>
+                                    <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
+                                        <div className="h-full bg-indigo-500" style={{ width: `${scores.governance}%` }}></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div className="flex justify-between text-sm mb-1">
+                                        <span className="font-medium">成果測定</span>
+                                        <span className="font-bold">{scores.measurement}</span>
+                                    </div>
+                                    <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
+                                        <div className="h-full bg-teal-500" style={{ width: `${scores.measurement}%` }}></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </Card>
 
-                {/* Detailed Scores */}
-                <div className="grid gap-6 md:grid-cols-4">
-                    <Card hover>
-                        <div className="text-center">
-                            <div className="text-5xl font-bold text-gradient mb-2">{scores.adoption}</div>
-                            <div className="text-sm font-semibold text-[var(--foreground-muted)]">導入成熟度</div>
-                        </div>
-                    </Card>
-                    <Card hover>
-                        <div className="text-center">
-                            <div className="text-5xl font-bold text-gradient mb-2">{scores.usage}</div>
-                            <div className="text-sm font-semibold text-[var(--foreground-muted)]">利用浸透度</div>
-                        </div>
-                    </Card>
-                    <Card hover>
-                        <div className="text-center">
-                            <div className="text-5xl font-bold text-gradient mb-2">{scores.governance}</div>
-                            <div className="text-sm font-semibold text-[var(--foreground-muted)]">ガバナンス</div>
-                        </div>
-                    </Card>
-                    <Card hover>
-                        <div className="text-center">
-                            <div className="text-5xl font-bold text-gradient mb-2">{scores.measurement}</div>
-                            <div className="text-sm font-semibold text-[var(--foreground-muted)]">成果測定</div>
-                        </div>
-                    </Card>
-                </div>
-
-                {/* Summary Data */}
-                <Card title="回答サマリー">
-                    <div className="grid gap-6 md:grid-cols-2">
-                        <div>
-                            <h4 className="font-bold text-[var(--foreground)] mb-3">基本情報</h4>
-                            <dl className="space-y-2 text-sm">
-                                <div className="flex justify-between py-2 border-b border-[var(--border-light)]">
-                                    <dt className="text-[var(--foreground-muted)]">組織対象</dt>
-                                    <dd className="font-semibold text-[var(--foreground)]">{data.organizationTarget}</dd>
-                                </div>
-                                <div className="flex justify-between py-2 border-b border-[var(--border-light)]">
-                                    <dt className="text-[var(--foreground-muted)]">従業員規模</dt>
-                                    <dd className="font-semibold text-[var(--foreground)]">{data.employeeCount}</dd>
-                                </div>
-                                <div className="flex justify-between py-2 border-b border-[var(--border-light)]">
-                                    <dt className="text-[var(--foreground-muted)]">業界</dt>
-                                    <dd className="font-semibold text-[var(--foreground)]">{data.industry}</dd>
-                                </div>
-                            </dl>
-                        </div>
-                        <div>
-                            <h4 className="font-bold text-[var(--foreground)] mb-3">導入状況</h4>
-                            <dl className="space-y-2 text-sm">
-                                <div className="flex justify-between py-2 border-b border-[var(--border-light)]">
-                                    <dt className="text-[var(--foreground-muted)]">ステータス</dt>
-                                    <dd className="font-semibold text-[var(--foreground)]">{data.status}</dd>
-                                </div>
-                                <div className="flex justify-between py-2 border-b border-[var(--border-light)]">
-                                    <dt className="text-[var(--foreground-muted)]">導入時期</dt>
-                                    <dd className="font-semibold text-[var(--foreground)]">{data.introductionYear}</dd>
-                                </div>
-                                <div className="flex justify-between py-2 border-b border-[var(--border-light)]">
-                                    <dt className="text-[var(--foreground-muted)]">有効利用者率</dt>
-                                    <dd className="font-semibold text-[var(--foreground)]">{data.activeUserRate}</dd>
-                                </div>
-                            </dl>
-                        </div>
+                        <Card title="推奨アクション">
+                            <ul className="space-y-3 text-sm">
+                                <li className="flex gap-2 items-start">
+                                    <span className="text-blue-500 font-bold">•</span>
+                                    <span className="text-[var(--foreground-muted)]">全社的なAI利用ガイドラインの策定と周知を強化してください。</span>
+                                </li>
+                                <li className="flex gap-2 items-start">
+                                    <span className="text-blue-500 font-bold">•</span>
+                                    <span className="text-[var(--foreground-muted)]">部署ごとの利用状況を定期的にモニタリングする仕組みを導入しましょう。</span>
+                                </li>
+                                <li className="flex gap-2 items-start">
+                                    <span className="text-blue-500 font-bold">•</span>
+                                    <span className="text-[var(--foreground-muted)]">成功事例の共有会を開催し、利用促進を図ってください。</span>
+                                </li>
+                            </ul>
+                        </Card>
                     </div>
-                </Card>
+                </div>
 
-                {/* CTA */}
-                <div className="flex justify-center gap-4 pt-8">
+                <div className="flex justify-center pt-8">
                     <Link href="/diagnosis">
-                        <Button size="lg" variant="outline">もう一度診断する</Button>
+                        <Button variant="outline">新しい診断を開始</Button>
                     </Link>
-                    <Button size="lg">レポートをダウンロード（準備中）</Button>
                 </div>
             </div>
         </MainLayout>
