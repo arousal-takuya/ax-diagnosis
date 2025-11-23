@@ -1,4 +1,5 @@
 import React from 'react';
+import { cn } from '@/lib/utils';
 
 interface SelectOption {
     value: string;
@@ -32,8 +33,13 @@ export default function Select({
             )}
             <select
                 id={selectId}
-                className={`w-full rounded border border-[var(--border)] bg-white px-3 py-2 text-sm text-[var(--foreground)] transition-colors focus:border-[var(--primary)] focus:outline-none focus:ring-1 focus:ring-[var(--primary)] disabled:bg-gray-100 disabled:cursor-not-allowed ${error ? 'border-[var(--error)] focus:border-[var(--error)] focus:ring-[var(--error)]' : ''
-                    } ${className}`}
+                className={cn(
+                    "w-full rounded border border-[var(--border)] bg-white px-3 py-2 text-sm text-[var(--foreground)] transition-colors focus:border-[var(--primary)] focus:outline-none focus:ring-1 focus:ring-[var(--primary)] disabled:bg-gray-100 disabled:cursor-not-allowed",
+                    error && "border-[var(--error)] focus:border-[var(--error)] focus:ring-[var(--error)]",
+                    className
+                )}
+                aria-invalid={!!error}
+                aria-describedby={error ? `${selectId}-error` : undefined}
                 {...props}
             >
                 <option value="">{placeholder}</option>
@@ -43,7 +49,7 @@ export default function Select({
                     </option>
                 ))}
             </select>
-            {error && <p className="mt-1 text-xs text-[var(--error)]">{error}</p>}
+            {error && <p id={`${selectId}-error`} className="mt-1 text-xs text-[var(--error)]">{error}</p>}
         </div>
     );
 }

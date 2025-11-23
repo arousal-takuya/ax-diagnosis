@@ -1,4 +1,5 @@
 import React from 'react';
+import { cn } from '@/lib/utils';
 
 interface CardProps {
     children: React.ReactNode;
@@ -12,7 +13,7 @@ export default function Card({ children, className = '', title, description, hov
     const hoverClass = hover ? 'hover:shadow-md transition-shadow duration-200' : '';
 
     return (
-        <div className={`dashboard-card bg-white p-6 ${hoverClass} ${className}`}>
+        <div className={cn("dashboard-card bg-white p-6", hoverClass, className)}>
             {(title || description) && (
                 <div className="mb-4 border-b border-[var(--border-light)] pb-3">
                     {title && <h3 className="text-lg font-bold text-[var(--primary)]">{title}</h3>}

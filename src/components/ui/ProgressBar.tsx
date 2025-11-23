@@ -1,15 +1,17 @@
 import React from 'react';
+import { cn } from '@/lib/utils';
 
 interface ProgressBarProps {
     currentStep: number;
     totalSteps: number;
+    className?: string;
 }
 
-export default function ProgressBar({ currentStep, totalSteps }: ProgressBarProps) {
+export default function ProgressBar({ currentStep, totalSteps, className }: ProgressBarProps) {
     const progress = (currentStep / totalSteps) * 100;
 
     return (
-        <div className="w-full">
+        <div className={cn("w-full", className)}>
             <div className="mb-2 flex justify-between text-xs font-semibold text-[var(--foreground-muted)] uppercase tracking-wider">
                 <span>Step {currentStep} of {totalSteps}</span>
                 <span>{Math.round(progress)}% Completed</span>
